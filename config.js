@@ -1,5 +1,5 @@
 module.exports = {
-  server_port: 3000,
+  server_port: 8080,
   route_info: [{
       file: './datashop',
       path: '/',

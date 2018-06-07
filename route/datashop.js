@@ -3,7 +3,7 @@ var BlockChainParser = require('../model/BlockChainParser');
 var fs = require('fs');
 var crypto = require('crypto');
 
-var db = new database('127.0.0.1', 'root', 'rootpw', 3306, 'DS');
+var db = new database('127.0.0.1', 'root', 'rootpw', 3306, 'ds');
 var parse = new BlockChainParser();
 db.connectInMysql(() => {
   console.log("Mysql start!");
@@ -35,7 +35,20 @@ var download = function(req, res) {
           });
         } else {
           console.log("존재");
-          res.download('./uploads/' + temp.file);
+          parse.parseCoin(s_wallet,temp.wallet,temp.id,(result)=>{
+            console.log(result);
+            let sum = 0;
+            for(var i = 0; i < result.length; i++){
+              sum += parseFloat(result[i].COINS);
+            }
+            if(sum >= parseFloat(temp.cost)){
+              res.download('./uploads/' + temp.file);
+            }else{
+              res.render('main.ejs', {
+                pass: 2
+              });
+            }
+          });
         }
       });
     }else{

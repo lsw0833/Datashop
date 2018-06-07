@@ -102,14 +102,14 @@
     		DOWNLOAD Data Download
     	</h2>
       </header>
-      <form>
+      <form id= "download" action="/download" method="post">
         <div class="form-row">
-          <div class="form-group col-md-6" action="/download" method="post">
+          <div class="form-group col-md-6">
             <label for="b_wallet">Buyer Wellet Address</label>
-            <input type="text" class="form-control" name="b_wallet" id="b_wallet" placeholder="Address">
+            <input type="text" class="form-control" name="s_wallet" id="s_wallet" placeholder="Address">
           </div>
           <div class="form-group col-md-6">
-            <label for="dataId">Data Id(HashString)</label>
+            <label for="dataId">Id</label>
             <input type="text" class="form-control" name="dataId" id="dataId" placeholder="ID">
           </div>
         </div>
@@ -143,7 +143,7 @@
   if(pass == 1) {
   %>
     <script type="text/javascript">
-      alert("입력값을 확인해주세요")
+      alert("업로드 실패!\n입력값을 확인해주세요")
     </script>
     <%
   }else if(pass == 2){
@@ -151,7 +151,11 @@
       <script type="text/javascript">
         alert("다운로드 실패\n 1.판매자한테 코인을 보내지 않은 경우\n 2.아직 검증이 되지 않은 데이터일 경우(5분뒤 다시 다운받으세요.)\n 3.데이터가 위변조된 경우")
       </script>
-      <% } %>
+  <% }else if(pass ==3){ %>
+    <script type="text/javascript">
+      alert("업로드 성공!")
+    </script>
+  <% } %>
 </body>
 
 </html>

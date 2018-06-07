@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-var db = new database('127.0.0.1', 'root', 'rootpw', 3306, 'DS');
+var db = new database('127.0.0.1', 'root', 'rootpw', 3306, 'ds');
 
 app.use('/public', static(path.join(__dirname, 'public')));
 
@@ -44,9 +44,13 @@ app.post('/upload', upload.single('img'), (req, res) => {
   cost = cost.trim();
   var flag = 1;
   if (wallet && cost && req.file) {
-    flag = 0;
+    if(!isNaN(cost)){
+      if(cost > 0){
+        flag = 3;
+      }
+    }
   }
-  if (flag==0) {
+  if (flag==3) {
     var datas = {
       file: req.file.filename,
       wallet: wallet,
@@ -61,7 +65,7 @@ app.post('/upload', upload.single('img'), (req, res) => {
       method: 'POST',
       headers: this.headers,
       json: true,
-      form: {TXID :"datashop"+req.file.filename, TXdata : hash}
+      form: {TXID :req.file.filename, TXdata : hash}
     };
     request(options, (err, res, body) => {});
   }
