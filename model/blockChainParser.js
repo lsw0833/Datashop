@@ -37,7 +37,7 @@ class BlockChainParser {
       for(var i =0; i<blockChain.length-3; i++){
         var coinInBlock = blockChain[i].coin;
         for(var j=0; j<coinInBlock.length; j++){
-          if(coinInBlock[j].DATAID==dataId && coinInBlock[j].PUB == from && coinInBlock[j].TO ==to ){
+          if(coinInBlock[j].DATAID==dataId && coinInBlock[j].FROM == from && coinInBlock[j].TO ==to ){
 
             result.push(coinInBlock[j]);
           }
